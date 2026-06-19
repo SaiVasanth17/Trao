@@ -16,10 +16,7 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "https://trao-gray.vercel.app",
-    ],
+    origin: true,
     credentials: true,
   })
 );
