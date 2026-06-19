@@ -12,7 +12,17 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+const cors = require("cors");
+
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://trao-gray.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/trips",tripRoutes);
