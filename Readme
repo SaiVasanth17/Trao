@@ -1,0 +1,323 @@
+# Trao – AI Powered Travel Planner
+
+## Project Overview
+
+Trao is an AI-powered travel planning platform that helps users generate personalized travel itineraries based on their destination, trip duration, budget, and interests.
+
+The system uses Artificial Intelligence to automatically create day-wise travel plans, estimate budgets, and recommend hotels, helping travelers plan trips efficiently without manual research.
+
+Users can register, log in securely, create trips, view trip details, edit trips, delete trips, and manage their travel plans through an intuitive dashboard.
+
+---
+
+# Chosen Tech Stack
+
+## Frontend
+
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+* Axios
+
+### Why?
+
+Next.js provides excellent routing, performance, and scalability. Tailwind CSS allows rapid UI development with responsive designs, while Axios simplifies API communication.
+
+---
+
+## Backend
+
+* Node.js
+* Express.js
+
+### Why?
+
+Express provides a lightweight and flexible framework for building REST APIs and integrates well with authentication and database services.
+
+---
+
+## Database
+
+* MongoDB Atlas
+* Mongoose
+
+### Why?
+
+MongoDB's document-based structure is suitable for storing flexible itinerary data. Atlas provides cloud hosting, scalability, and easy deployment integration.
+
+---
+
+## AI Integration
+
+* Groq API
+* Llama Model
+
+### Why?
+
+Groq provides fast AI inference and allows dynamic itinerary generation based on user preferences, making the travel plans personalized and intelligent.
+
+---
+
+# Setup Instructions
+
+## Local Setup
+
+### Clone Repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/Trao.git
+cd Trao
+```
+
+### Backend Setup
+
+```bash
+cd server
+npm install
+npm run dev
+```
+
+### Frontend Setup
+
+```bash
+cd client
+npm install
+npm run dev
+```
+
+---
+
+## Environment Variables
+
+Create a `.env` file inside the server folder:
+
+```env
+PORT=5000
+
+MONGO_URI=your_mongodb_connection_string
+
+JWT_SECRET=your_jwt_secret
+
+GROQ_API_KEY=your_groq_api_key
+```
+
+---
+
+## Deployed Application
+
+### Frontend
+
+https://trao-gray.vercel.app
+
+### Backend
+
+https://trao-backend-dw4i.onrender.com
+
+---
+
+# High-Level Architecture
+
+```text
+User
+  │
+  ▼
+Next.js Frontend (Vercel)
+  │
+  ▼
+Express REST API (Render)
+  │
+  ├── JWT Authentication
+  │
+  ├── Groq AI Service
+  │
+  ▼
+MongoDB Atlas
+```
+
+### Flow
+
+1. User logs in.
+2. JWT token is generated.
+3. User submits trip details.
+4. Backend sends prompt to Groq AI.
+5. AI generates itinerary, hotels, and budget estimates.
+6. Trip data is stored in MongoDB Atlas.
+7. User can view, edit, or delete trips.
+
+---
+
+# Authentication and Authorization Approach
+
+## Authentication
+
+The application uses JWT (JSON Web Token) based authentication.
+
+### Process
+
+1. User registers.
+2. Password is hashed before storage.
+3. User logs in.
+4. Backend validates credentials.
+5. JWT token is generated and returned.
+6. Token is stored on the client side.
+
+---
+
+## Authorization
+
+Protected routes require a valid JWT token.
+
+Examples:
+
+* Create Trip
+* View Trips
+* Edit Trip
+* Delete Trip
+* Dashboard Access
+
+Users can only access their own trip data.
+
+---
+
+# AI Agent Design and Purpose
+
+## Purpose
+
+The AI agent acts as a virtual travel planner.
+
+Its goal is to generate personalized travel plans based on:
+
+* Destination
+* Number of days
+* Budget category
+* User interests
+
+---
+
+## AI Workflow
+
+Input:
+
+```text
+Destination
+Days
+Budget
+Interests
+```
+
+Processing:
+
+```text
+Backend → Groq AI → Generated JSON Response
+```
+
+Output:
+
+```text
+Day-wise itinerary
+Budget estimation
+Hotel recommendations
+```
+
+The generated response is converted into structured trip data and stored in MongoDB.
+
+---
+
+# Creative / Custom Feature
+
+## Interactive Itinerary Management
+
+Beyond AI-generated itineraries, users can:
+
+* Add activities manually
+* Delete activities
+* Regenerate specific days
+* Edit trip information
+* Update travel preferences
+
+This transforms the application from a static itinerary generator into a customizable trip management platform.
+
+---
+
+# Key Design Decisions and Trade-Offs
+
+## Decision 1: MongoDB Instead of SQL
+
+### Benefit
+
+Flexible storage for itinerary structures.
+
+### Trade-Off
+
+Less strict schema enforcement compared to relational databases.
+
+---
+
+## Decision 2: Groq AI Instead of Traditional Rule-Based Planning
+
+### Benefit
+
+Highly personalized travel recommendations.
+
+### Trade-Off
+
+AI responses may vary slightly between requests.
+
+---
+
+## Decision 3: JWT Authentication
+
+### Benefit
+
+Simple and scalable authentication approach.
+
+### Trade-Off
+
+Requires client-side token management.
+
+---
+
+## Decision 4: Cloud Deployment
+
+### Benefit
+
+Accessible from anywhere and easy to demonstrate.
+
+### Trade-Off
+
+Render free-tier services may take a few seconds to wake up after inactivity.
+
+---
+
+# Known Limitations
+
+1. Hotel recommendations are AI-generated and not connected to real-time hotel booking systems.
+
+2. Budget estimates are approximate and may vary based on actual travel costs.
+
+3. Flight booking integration is not included.
+
+4. Weather information is not currently integrated.
+
+5. Free-tier deployment may introduce cold-start delays.
+
+---
+
+# Future Enhancements
+
+* Real-time weather integration
+* Flight search APIs
+* Google Maps integration
+* PDF itinerary export
+* Mobile application
+* Collaborative trip planning
+* Real-time travel alerts
+
+---
+
+# Author
+
+B J V Sai Vasanth
+
+Trao – AI Powered Travel Planner
