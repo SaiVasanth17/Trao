@@ -4,8 +4,10 @@ import api from "@/services/api";
 import AppNavbar from "@/components/AppNavbar/AppNavbar";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { useRouter } from "next/navigation";
+import {
+  useParams,
+  useRouter,
+} from "next/navigation";
 
 export default function TripDetails() {
   const params = useParams();
@@ -204,19 +206,46 @@ export default function TripDetails() {
 
           <div className="bg-gradient-to-r from-indigo-600 to-blue-500 text-white rounded-3xl p-8 mb-8">
 
-            <h1 className="text-5xl font-bold">
-                📍 {trip.destination}
-            </h1>
+  <div className="flex justify-between items-start">
 
-            <p className="mt-3 text-xl">
-                {trip.days} Days Adventure
-            </p>
+    <div>
 
-            <p className="mt-2 opacity-90">
-                Budget: {trip.budgetType}
-            </p>
+      <h1 className="text-5xl font-bold">
+        📍 {trip.destination}
+      </h1>
 
-          </div>
+      <p className="mt-3 text-xl">
+        {trip.days} Days Adventure
+      </p>
+
+      <p className="mt-2 opacity-90">
+        Budget: {trip.budgetType}
+      </p>
+
+    </div>
+
+    <button
+      onClick={() =>
+        router.push(
+          `/edit-trip/${trip._id}`
+        )
+      }
+      className="
+      bg-yellow-500
+      hover:bg-yellow-600
+      text-white
+      px-5
+      py-2
+      rounded-xl
+      font-semibold
+      "
+    >
+      ✏️ Edit Trip
+    </button>
+
+  </div>
+
+</div>
 
           <div className="grid md:grid-cols-2 gap-8 mt-8">
 

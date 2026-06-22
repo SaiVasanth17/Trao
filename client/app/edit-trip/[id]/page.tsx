@@ -1,58 +1,54 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import {
+  useEffect,
+  useState,
+} from "react";
+
+import {
+  useRouter,
+  useParams,
+} from "next/navigation";
+
 import api from "@/services/api";
 import AppNavbar from "@/components/AppNavbar/AppNavbar";
 
-export default function CreateTrip() {
+export default function EditTrip() {
+
   const router = useRouter();
 
-  const [destination, setDestination] =
+  const params =
+    useParams();
+
+  const [destination,
+    setDestination] =
     useState("");
 
-  const [days, setDays] =
+  const [days,
+    setDays] =
     useState(5);
 
-  const [budgetType, setBudgetType] =
+  const [budgetType,
+    setBudgetType] =
     useState("Medium");
 
-  const [interests, setInterests] =
+  const [interests,
+    setInterests] =
     useState("");
 
-  const [loading, setLoading] =
-    useState(false);
-
   useEffect(() => {
-    const token =
-      localStorage.getItem("token");
 
-    if (!token) {
-      router.push("/login");
-    }
-  }, [router]);
-
-  const handleSubmit = async () => {
-    try {
-      setLoading(true);
+    const fetchTrip =
+      async () => {
 
       const token =
-        localStorage.getItem("token");
+        localStorage.getItem(
+          "token"
+        );
 
       const response =
-        await api.post(
-          "/trips",
-          {
-            destination,
-            days,
-            budgetType,
-            interests:
-              interests
-                .split(",")
-                .map((item) =>
-                  item.trim()
-                ),
-          },
+        await api.get(
+          `/trips/${params.id}`,
           {
             headers: {
               Authorization:
@@ -61,8 +57,65 @@ export default function CreateTrip() {
           }
         );
 
+      const trip =
+        response.data;
+
+      setDestination(
+        trip.destination
+      );
+
+      setDays(
+        trip.days
+      );
+
+      setBudgetType(
+        trip.budgetType
+      );
+
+      setInterests(
+        trip.interests.join(
+          ", "
+        )
+      );
+    };
+
+    fetchTrip();
+
+  }, [params.id]);
+
+  const handleUpdate =
+    async () => {
+
+    try {
+
+      const token =
+        localStorage.getItem(
+          "token"
+        );
+
+      await api.put(
+        `/trips/${params.id}`,
+        {
+          destination,
+          days,
+          budgetType,
+          interests:
+            interests.split(","),
+        },
+        {
+          headers: {
+            Authorization:
+              `Bearer ${token}`,
+          },
+        }
+      );
+
+      alert(
+        "Trip Updated"
+      );
+
       router.push(
-        `/trips/${response.data._id}`
+        `/trips/${params.id}`
       );
 
     } catch (error) {
@@ -70,12 +123,8 @@ export default function CreateTrip() {
       console.log(error);
 
       alert(
-        "Trip Creation Failed"
+        "Update Failed"
       );
-
-    } finally {
-
-      setLoading(false);
 
     }
   };
@@ -86,20 +135,15 @@ export default function CreateTrip() {
 
       <div className="min-h-screen p-8 bg-slate-100">
 
-        <div className="max-w-xl mx-auto bg-white p-8 rounded-3xl shadow-lg">
+        <div className="max-w-xl mx-auto bg-white p-8 rounded-3xl shadow">
 
-          <h1 className="text-3xl font-bold">
-            Create Trip
+          <h1 className="text-3xl font-bold mb-6">
+            Edit Trip
           </h1>
 
-          <p className="text-gray-500 mt-2">
-            Generate an AI-powered travel itinerary
-          </p>
-
-          <div className="space-y-4 mt-6">
+          <div className="space-y-4">
 
             <input
-              placeholder="Destination"
               className="w-full border p-3 rounded-xl"
               value={destination}
               onChange={(e) =>
@@ -146,7 +190,6 @@ export default function CreateTrip() {
             </select>
 
             <input
-              placeholder="Food, Culture, Adventure"
               className="w-full border p-3 rounded-xl"
               value={interests}
               onChange={(e) =>
@@ -157,43 +200,18 @@ export default function CreateTrip() {
             />
 
             <button
-              onClick={handleSubmit}
-              disabled={loading}
+              onClick={
+                handleUpdate
+              }
               className="
                 w-full
                 bg-indigo-600
-                hover:bg-indigo-700
                 text-white
                 py-3
                 rounded-xl
-                font-semibold
-                transition
-                disabled:opacity-50
-                disabled:cursor-not-allowed
-                flex
-                items-center
-                justify-center
-                gap-2
               "
             >
-              {loading ? (
-                <>
-                  <div
-                    className="
-                      animate-spin
-                      rounded-full
-                      h-5
-                      w-5
-                      border-2
-                      border-white
-                      border-t-transparent
-                    "
-                  />
-                  Generating AI Trip...
-                </>
-              ) : (
-                "Generate Trip"
-              )}
+              Update Trip
             </button>
 
           </div>
