@@ -8,8 +8,6 @@ The system uses Artificial Intelligence to automatically create day-wise travel 
 
 Users can register, log in securely, create trips, view trip details, edit trips, delete trips, and manage their travel plans through an intuitive dashboard.
 
----
-
 # Chosen Tech Stack
 
 ## Frontend
@@ -24,8 +22,6 @@ Users can register, log in securely, create trips, view trip details, edit trips
 
 Next.js provides excellent routing, performance, and scalability. Tailwind CSS allows rapid UI development with responsive designs, while Axios simplifies API communication.
 
----
-
 ## Backend
 
 * Node.js
@@ -34,8 +30,6 @@ Next.js provides excellent routing, performance, and scalability. Tailwind CSS a
 ### Why?
 
 Express provides a lightweight and flexible framework for building REST APIs and integrates well with authentication and database services.
-
----
 
 ## Database
 
@@ -46,8 +40,6 @@ Express provides a lightweight and flexible framework for building REST APIs and
 
 MongoDB's document-based structure is suitable for storing flexible itinerary data. Atlas provides cloud hosting, scalability, and easy deployment integration.
 
----
-
 ## AI Integration
 
 * Groq API
@@ -57,52 +49,6 @@ MongoDB's document-based structure is suitable for storing flexible itinerary da
 
 Groq provides fast AI inference and allows dynamic itinerary generation based on user preferences, making the travel plans personalized and intelligent.
 
----
-
-# Setup Instructions
-
-## Local Setup
-
-### Clone Repository
-
-```bash
-git clone https://github.com/YOUR_USERNAME/Trao.git
-cd Trao
-```
-
-### Backend Setup
-
-```bash
-cd server
-npm install
-npm run dev
-```
-
-### Frontend Setup
-
-```bash
-cd client
-npm install
-npm run dev
-```
-
----
-
-## Environment Variables
-
-Create a `.env` file inside the server folder:
-
-```env
-PORT=5000
-
-MONGO_URI=your_mongodb_connection_string
-
-JWT_SECRET=your_jwt_secret
-
-GROQ_API_KEY=your_groq_api_key
-```
-
----
 
 ## Deployed Application
 
@@ -114,11 +60,8 @@ https://trao-gray.vercel.app
 
 https://trao-backend-dw4i.onrender.com
 
----
-
 # High-Level Architecture
 
-```text
 User
   │
   ▼
@@ -133,7 +76,6 @@ Express REST API (Render)
   │
   ▼
 MongoDB Atlas
-```
 
 ### Flow
 
@@ -144,8 +86,6 @@ MongoDB Atlas
 5. AI generates itinerary, hotels, and budget estimates.
 6. Trip data is stored in MongoDB Atlas.
 7. User can view, edit, or delete trips.
-
----
 
 # Authentication and Authorization Approach
 
@@ -162,8 +102,6 @@ The application uses JWT (JSON Web Token) based authentication.
 5. JWT token is generated and returned.
 6. Token is stored on the client side.
 
----
-
 ## Authorization
 
 Protected routes require a valid JWT token.
@@ -178,8 +116,6 @@ Examples:
 
 Users can only access their own trip data.
 
----
-
 # AI Agent Design and Purpose
 
 ## Purpose
@@ -193,36 +129,26 @@ Its goal is to generate personalized travel plans based on:
 * Budget category
 * User interests
 
----
-
 ## AI Workflow
 
 Input:
 
-```text
 Destination
 Days
 Budget
 Interests
-```
 
 Processing:
 
-```text
 Backend → Groq AI → Generated JSON Response
-```
 
 Output:
 
-```text
 Day-wise itinerary
 Budget estimation
 Hotel recommendations
-```
 
 The generated response is converted into structured trip data and stored in MongoDB.
-
----
 
 # Creative / Custom Feature
 
@@ -238,8 +164,6 @@ Beyond AI-generated itineraries, users can:
 
 This transforms the application from a static itinerary generator into a customizable trip management platform.
 
----
-
 # Key Design Decisions and Trade-Offs
 
 ## Decision 1: MongoDB Instead of SQL
@@ -252,8 +176,6 @@ Flexible storage for itinerary structures.
 
 Less strict schema enforcement compared to relational databases.
 
----
-
 ## Decision 2: Groq AI Instead of Traditional Rule-Based Planning
 
 ### Benefit
@@ -263,8 +185,6 @@ Highly personalized travel recommendations.
 ### Trade-Off
 
 AI responses may vary slightly between requests.
-
----
 
 ## Decision 3: JWT Authentication
 
@@ -276,8 +196,6 @@ Simple and scalable authentication approach.
 
 Requires client-side token management.
 
----
-
 ## Decision 4: Cloud Deployment
 
 ### Benefit
@@ -287,8 +205,6 @@ Accessible from anywhere and easy to demonstrate.
 ### Trade-Off
 
 Render free-tier services may take a few seconds to wake up after inactivity.
-
----
 
 # Known Limitations
 
@@ -302,8 +218,6 @@ Render free-tier services may take a few seconds to wake up after inactivity.
 
 5. Free-tier deployment may introduce cold-start delays.
 
----
-
 # Future Enhancements
 
 * Real-time weather integration
@@ -313,8 +227,6 @@ Render free-tier services may take a few seconds to wake up after inactivity.
 * Mobile application
 * Collaborative trip planning
 * Real-time travel alerts
-
----
 
 # Author
 
